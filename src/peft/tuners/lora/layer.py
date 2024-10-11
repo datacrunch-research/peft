@@ -308,8 +308,9 @@ class LoraLayer(BaseTunerLayer):
         self.scaling[adapter] = scale * self.lora_alpha[adapter] / self.r[adapter]
 
     def scale_layer(self, scale: float) -> None:
-        if scale == 1:
-            return
+        # Muted to keep torch dynamo happy
+        # if scale == 1:
+        #    return
 
         for active_adapter in self.active_adapters:
             if active_adapter not in self.lora_A.keys():
